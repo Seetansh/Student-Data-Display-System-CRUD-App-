@@ -3,7 +3,7 @@ import argparse
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("text", type=str, help="Comment for commit")
+parser.add_argument("text",nargs ="?", default="",  type=str, help="Comment for commit")
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument("-all", action="store_true", help="Do all commands including push")
 group.add_argument("-c", action="store_true", help="Do only commit")
