@@ -1,6 +1,6 @@
 from flask import Flask
 from config import DevelopmentConfig, ProductionConfig
-from app.routes import main_bp, auth_bp
+from app.routes import main_bp, auth_bp, user_bp
 from app.extensions import db, migrate
 
 def create_app():
@@ -14,6 +14,7 @@ def create_app():
     migrate.init_app(app, db)
 
     app.register_blueprint(main_bp)
-    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(user_bp, url_prefix="/user")
     
     return app
