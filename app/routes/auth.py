@@ -31,7 +31,7 @@ def register():
                 flash('An error occurred while registering. Please try again.', 'danger')
                 return redirect(url_for('auth.register'))
 
-    return render_template('auth/register.html', form=RegisterForm())
+    return render_template('auth/register.html', form=form)
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -50,8 +50,9 @@ def login():
                 return redirect(url_for('auth.register'))  
             else:
                 flash('Invalid email or password. Please try again.', 'danger')
+                return redirect(url_for('auth.register'))
         except Exception as e:
             print(f"Error occurred during login: {e}")
             flash('An error occurred during login. Please try again.', 'danger')
 
-    return render_template('auth/login.html', form=LoginForm())
+    return render_template('auth/login.html', form=form)
