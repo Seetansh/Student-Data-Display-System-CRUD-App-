@@ -24,5 +24,4 @@ class Users(db.Model):
     @staticmethod
     def check_hash(hashed_text, text):
         return check_password_hash(hashed_text, text)
-
     
