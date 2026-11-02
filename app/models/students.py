@@ -10,7 +10,7 @@ class Students(db.Model):
     fees_paid = db.Column(db.Boolean, default=False)
     bio = db.Column(db.Text, nullable=True)
     interests = db.Column(db.Text, nullable=True)
-    class_id = db.Column(db.Integer, db.ForeignKey('classes.class_id'), nullable=True)
+    class_id = db.Column(db.Integer, db.ForeignKey('classes.class_id'), nullable=False)
     student_class = db.relationship('Classes', back_populates='students')
     std_subjects = db.relationship(
         'StudentSubjects',

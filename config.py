@@ -13,6 +13,7 @@ class Config:
 
     SECRET_KEY = os.getenv("SECRET_KEY", "your secret_key_here")
 
+    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI", "default_database_uri_here")
 
 class DevelopmentConfig(Config):
     DEBUG = True
