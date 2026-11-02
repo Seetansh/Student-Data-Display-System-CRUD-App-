@@ -47,7 +47,7 @@ def login():
         try:
             if user and Users.check_hash(user.password, password):
                 flash('Login successful!', 'success')
-                return redirect(url_for('auth.register'))  
+                return redirect(url_for('user.dashboard'))  
             else:
                 flash('Invalid email or password. Please try again.', 'danger')
                 return redirect(url_for('auth.register'))
