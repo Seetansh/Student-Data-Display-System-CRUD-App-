@@ -1,7 +1,7 @@
 from app.forms import RegisterForm, LoginForm
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from app.models import Users
-from app.utils import save_to_db, check_hash
+from app.utils import save_to_db
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -22,7 +22,7 @@ def register():
         else:
             # create new user
             try:
-                new_user = Users(username=username, email=email, password=password)
+                new_user = Users(username=username, email=email, password=Users.hash_text(password))
                 save_to_db(new_user)
                 flash('Registration successful! You can now log in.', 'success')
                 return redirect(url_for('auth.login'))
@@ -44,16 +44,15 @@ def login():
         # check if user exists
         user = Users.query.filter_by(email=email).first()
         try:
-            if user and check_hash(user.password, password):
+            if user and Users.check_hash(user.password, password):
                 flash('Login successful!', 'success')
                 print("success")
-                return redirect(url_for('auth.register'))  # Redirect to a dashboard or home page after login
+                return redirect(url_for('auth.register'))  
             else:
                 print("not success")
                 flash('Invalid email or password. Please try again.', 'danger')
         except Exception as e:
             print(f"Error occurred during login: {e}")
             flash('An error occurred during login. Please try again.', 'danger')
-
 
     return render_template('auth/login.html', form=LoginForm())

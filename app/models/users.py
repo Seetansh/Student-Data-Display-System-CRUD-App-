@@ -1,5 +1,5 @@
 from app.extensions import db
-from app.utils import hash_text
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Users(db.Model):
     __tablename__ = 'users'
@@ -11,9 +11,18 @@ class Users(db.Model):
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
-        self.password = hash_text(password)
+        self.password = password
 
     def __repr__(self):
         return f'<User {self.username}>'
+
+    @staticmethod
+    def hash_text(text):
+        hashed_text = generate_password_hash(text)
+        return hashed_text
+
+    @staticmethod
+    def check_hash(hashed_text, text):
+        return check_password_hash(hashed_text, text)
 
     
